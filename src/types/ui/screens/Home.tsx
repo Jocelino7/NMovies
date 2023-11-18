@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState, } from "react"
-import { Alert, FlatList, ScrollView, StyleSheet, ToastAndroid } from "react-native"
+import React, { useEffect, useState, } from "react"
+import { Alert, FlatList, ScrollView, StyleSheet } from "react-native"
 import { TextField } from "../components/TextField"
 import { MovieComponent } from "../components/MovieSlider"
 import { Genre, Movie, actor } from "../../../models/model"
@@ -9,7 +9,7 @@ import { Title } from "../components/Title"
 import { ActorComponent } from "../components/ActorComponent"
 import { MovieComponentPrimary } from "../components/MovieComponent"
 import { Button } from "../components/Button"
-import { HomeState, homeStore } from "../../../stores/HomeStores"
+import { homeStore } from "../../../stores/HomeStores"
 import { RepositoryImpl } from "../../../models/repository/repositoryImpl"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenProps } from "../../types"
@@ -39,7 +39,8 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
     const onChange = homeStore((state) => state.onChange)
     const cleanInput = homeStore((state) => state.cleanInput)
     const [showNetInfoModal,setShowNetInfoModa] = useState(false)
-    const connected = netWorkStore((state)=>state.connected)
+    const retry = netWorkStore((state)=>state.retry)
+    const setRetry = netWorkStore((state)=>state.setRetry)
   
     async function handleFetchData() {
         const fetchResult = await handleFetch(repository)
@@ -59,26 +60,20 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
         cleanInput()
     }
     function handleRetry(){
-        fetch().then((state)=>{
-            if(!state.isInternetReachable || !state.isConnected){
-                return
-            }
-            setShowNetInfoModa(false)
-            handleFetch(repository)
-        })
+        setRetry(false)
+        handleFetch(repository)
     }
+    useEffect(()=>{
+        handleFetchData()
+    },[])
 
     useEffect(() => {
-        fetch().then((state)=>{
-            if(!state.isConnected){
-                setShowNetInfoModa(true)
-            }
-        })
-        handleFetchData()
-    }, []);
+       if(retry){
+        handleRetry()
+       }
+    }, [retry]);
     return (
         <ScrollView style={style.mainContainer} scrollEnabled={true} nestedScrollEnabled={true}>
-            <NetWorkModal show={showNetInfoModal || connected} onButtonPress={()=>handleRetry()}/>
             <TextField value={textInputValue == null ? "" : textInputValue} onValueChange={onChange} onDone={() => handleDone(textInputValue)} />
             <Title text={appString.comingUpMovies} />
             <UpComingMovieShimmer isLoading={isUpComingMoviesLoading}>

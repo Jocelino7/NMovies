@@ -1,7 +1,7 @@
 import { apiKey, baseUrl } from "../../constants/contants";
 import { InMemoryCache } from "../../inMemoryCache/inMemoryCache";
 import { StringProvider } from "../../utils/language";
-import {  Genre, actor, Casting, Video, MovieDetail, MovieResult } from "../model";
+import {  Genre, Casting, Video, MovieDetail, MovieResult } from "../model";
 import Repository from "./repository";
 enum  DataEnum{
     data,cast,genres,results,Video

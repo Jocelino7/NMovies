@@ -5,7 +5,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { Title } from "../components/Title"
 import { RepositoryImpl } from "../../../models/repository/repositoryImpl"
 import { searchStore } from "../../../stores/searchStore"
-import { FlatList, State } from "react-native-gesture-handler"
+import { FlatList } from "react-native-gesture-handler"
 import { SearchShimmer } from "../components/BasicShimmer"
 import { Movie } from "../../../models/model"
 import { StringProvider } from "../../../utils/language"
@@ -20,9 +20,8 @@ const Search = ({ navigation, route }: SearchProps) => {
     const isResultLoading = searchStore((State) => State.isResultLoading)
     const result = searchStore((state) => state.results)
     const getMovieByGenres = searchStore((State) => State.getMovieByGenre)
-    const retry = netWorkStore((state)=>state.connected) 
+    const retry = netWorkStore((state)=>state.retry) 
     const setRetry = netWorkStore((state)=>state.setRetry)
-    const connected = netWorkStore((state)=>state.connected) 
     function handlePress(movie: Movie) {
         navigation.navigate("Detail", movie)
     }
@@ -31,10 +30,8 @@ const Search = ({ navigation, route }: SearchProps) => {
     }
     useEffect(()=>{
         if(retry){
-            if(connected){
-                setRetry(false)
-                handleFetch()
-            }
+            setRetry(false)
+            handleFetch()
         }
     },[retry])
 

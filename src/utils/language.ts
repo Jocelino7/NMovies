@@ -32,7 +32,7 @@ const en:AppStrings ={
     noResult: "No Result",
     emptyValue:"Please Type Something",
     no_video_available:"No video Available",
-    noInternetConnection:"No internet Connection",
+    noInternetConnection:"Slow connection or no internet Connection",
     retry:"Retry"
 
 }
@@ -50,7 +50,7 @@ const pt: AppStrings = {
     noResult: "Sem Resultado",
     emptyValue:"Por-favor digite algo para pesquisar",
     no_video_available:"Vídeo indisponível",
-    noInternetConnection:"No internet Connection",
+    noInternetConnection:"Fraca connexão ou sem connexão a internet",
     retry:"Tentar Novamente"
 }
 

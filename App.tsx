@@ -15,35 +15,40 @@ import { NavigationContainer } from '@react-navigation/native';
 import { netWorkStore } from './src/stores/NetworkStore';
 import { useNetInfo } from "@react-native-community/netinfo";
 import { NetWorkModal } from './src/types/ui/components/NetWorkModal';
-
-const { isConnected,isInternetReachable } = useNetInfo();
-
 function App(): JSX.Element {
+  const { isConnected, isInternetReachable } = useNetInfo();
   const Stack = createStackNavigator<ScreenProps>()
-  const setRetry = netWorkStore((state)=>state.setRetry)
-  const setConnection = netWorkStore((state)=>state.setConnection)
-  useEffect(()=>{
-    if(!isConnected){
-      setConnection(false)
+  const setRetry = netWorkStore((state) => state.setRetry)
+  const showModal = netWorkStore((state) => state.showModal)
+  const setShowModal = netWorkStore((state) => state.setShowModal)
+  function handleSetRetry(){
+    if(!isConnected||!isInternetReachable){
+      return
     }
-
-  },[isConnected])
+    setShowModal(false)
+    setRetry(true)
+  }
+  useEffect(() => {
+    if(isConnected==false || isInternetReachable==false){
+      setShowModal(true)
+    } 
+  }, [isConnected])
   return (
     <SafeAreaView style={styles.appContainer}>
       <StatusBar
         backgroundColor={color.primary}
       />
-      <NetWorkModal show={!isConnected || !isInternetReachable} onButtonPress={()=>setRetry(true)}/>
+      <NetWorkModal show={showModal} onButtonPress={() => handleSetRetry()} />
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' screenOptions={
           {
-            headerStyle:{
+            headerStyle: {
               backgroundColor: color.redColor,
             },
-            headerTintColor:color.secondary
+            headerTintColor: color.secondary
           }
         }>
-          <Stack.Screen name='Home' component={Home}  />
+          <Stack.Screen name='Home' component={Home} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Detail' component={MovieDetail} />
         </Stack.Navigator>
