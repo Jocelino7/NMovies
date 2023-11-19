@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Genre, Movie, MovieResult, actor } from "../models/model";
+import { Genre, MovieResult } from "../models/model";
 import Repository from "../models/repository/repository";
 import { MovieResultFallback } from "../utils/fallback";
 

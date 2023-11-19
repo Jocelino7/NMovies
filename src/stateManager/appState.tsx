@@ -1,6 +1,5 @@
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 import { AppContext } from "./context"
-import { Movie } from "../models/model"
 
 type AppStateProp = {
     children:ReactNode

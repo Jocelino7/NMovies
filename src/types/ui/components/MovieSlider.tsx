@@ -1,4 +1,4 @@
-import { Image, Text, View, StyleSheet, StyleProp, ViewStyle, Dimensions, Pressable } from "react-native";
+import { Image, Text, StyleSheet, StyleProp, ViewStyle, Dimensions, Pressable } from "react-native";
 import { Movie } from "../../../models/model";
 import { color } from "../color";
 import { imageUrl } from "../../../constants/contants";

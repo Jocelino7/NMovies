@@ -1,6 +1,6 @@
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native"
 import { color } from "../color"
-import { Casting, actor } from "../../../models/model"
+import { Casting } from "../../../models/model"
 import { imageUrl } from "../../../constants/contants"
 
 const CastingComponent = ({ casting, style = {} }: { casting: Casting, style?: StyleProp<ViewStyle> }) => {

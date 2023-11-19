@@ -5,6 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
+
 import { color } from './src/types/ui/color';
 import { Home } from './src/types/ui/screens/Home';
 import MovieDetail from './src/types/ui/screens/MovieDetailt';
@@ -15,6 +16,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { netWorkStore } from './src/stores/NetworkStore';
 import { useNetInfo } from "@react-native-community/netinfo";
 import { NetWorkModal } from './src/types/ui/components/NetWorkModal';
+import SplashScreen from 'react-native-splash-screen';
 function App(): JSX.Element {
   const { isConnected, isInternetReachable } = useNetInfo();
   const Stack = createStackNavigator<ScreenProps>()
@@ -28,6 +30,9 @@ function App(): JSX.Element {
     setShowModal(false)
     setRetry(true)
   }
+  useEffect(()=>{
+    SplashScreen.hide()
+  },[])
   useEffect(() => {
     if(isConnected==false || isInternetReachable==false){
       setShowModal(true)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react"
+import React, { useEffect, } from "react"
 import { Alert, FlatList, ScrollView, StyleSheet } from "react-native"
 import { TextField } from "../components/TextField"
 import { MovieComponent } from "../components/MovieSlider"
@@ -14,12 +14,7 @@ import { RepositoryImpl } from "../../../models/repository/repositoryImpl"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenProps } from "../../types"
 import { color } from "../color"
-import { fetch } from "@react-native-community/netinfo"
-import { NetWorkModal } from "../components/NetWorkModal"
 import { netWorkStore } from "../../../stores/NetworkStore"
-
-
-
 type HomeProps = StackScreenProps<ScreenProps, "Home">
 const Home = ({ navigation }: HomeProps): JSX.Element => {
     const appString = new StringProvider().getAppStrings()
@@ -38,10 +33,8 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
     const textInputValue = homeStore((state) => state.textInputValue)
     const onChange = homeStore((state) => state.onChange)
     const cleanInput = homeStore((state) => state.cleanInput)
-    const [showNetInfoModal,setShowNetInfoModa] = useState(false)
     const retry = netWorkStore((state)=>state.retry)
     const setRetry = netWorkStore((state)=>state.setRetry)
-  
     async function handleFetchData() {
         const fetchResult = await handleFetch(repository)
         setFetchResult(fetchResult)
@@ -55,7 +48,6 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
             ],)
             return
         }
-
         navigation.navigate("Search", { value: textInputValue ? textInputValue : "" })
         cleanInput()
     }
@@ -88,7 +80,6 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
                         }} />;
                     }}
                 />
-
             </UpComingMovieShimmer>
             <GenreShimmer isLoading={isGenresLoading}>
                 <FlatList
@@ -106,7 +97,6 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
             <Title text={appString.playingNow} />
             <BasicShimmer isLoading={isPopularMovieLoading}>
                 <FlatList
-
                     onEndReached={() => { console.log("reached the end") }}
                     horizontal
                     style={style.carrosuel}
@@ -120,7 +110,6 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
                     }}
                 />
             </BasicShimmer>
-
             <Title text={appString.popular} />
             <BasicShimmer isLoading={isPopularMovieLoading}>
                 <FlatList
@@ -149,10 +138,6 @@ const Home = ({ navigation }: HomeProps): JSX.Element => {
                 />
             </BasicShimmer>
         </ScrollView>
-
-
-
-
     )
 }
 const style = StyleSheet.create({

@@ -1,5 +1,4 @@
 
-
 export type Movie = {
     originalTitle: string;
     adult: boolean;
@@ -13,6 +12,11 @@ export type Movie = {
     release_date:string,
     poster_path:string
   };
+  export type MovieResult={
+    page:number,
+    total_pages:number,
+    results:any[]
+  }
 export type Genre = {
     id:string,
     name:string
@@ -33,7 +37,7 @@ export type ActorsResponse = {
   page:string,
   results:actor[]
 }
-export type CreditActor = {
+export type Casting = {
   adult: boolean;
   gender: number;
   id: number;
@@ -62,10 +66,10 @@ export type Video = {
 
 export type MovieDetail = {
   adult: boolean;
-  backdrop_path: string;
-  belongs_to_collection: null | any; // Substitua `any` pelo tipo apropriado, se aplicável
+  backdrop_path: string | null;
+  belongs_to_collection: any; // Pode ser um tipo específico se a estrutura for conhecida
   budget: number;
-  genres: Genre[];
+  genres: { id: number; name: string }[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -73,51 +77,22 @@ export type MovieDetail = {
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: string;
-  production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
+  poster_path: string | null;
+  production_companies: {
+    id: number;
+    logo_path: string | null;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: { iso_3166_1: string; name: string }[];
   release_date: string;
   revenue: number;
-  runtime: number;
-  spoken_languages: SpokenLanguage[];
+  runtime: number | null;
+  spoken_languages: { english_name: string; iso_639_1: string; name: string }[];
   status: string;
   tagline: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
-};
-
-
-
-type ProductionCompany = {
-  id: number;
-  logo_path: string | null;
-  name: string;
-  origin_country: string;
-};
-
-type ProductionCountry = {
-  iso_3166_1: string;
-  name: string;
-};
-
-type SpokenLanguage = {
-  english_name: string;
-  iso_639_1: string;
-  name: string;
-};
-export type Casting = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path: string;
-  cast_id: number;
-  character: string;
-  credit_id: string;
-  order: number;
 };

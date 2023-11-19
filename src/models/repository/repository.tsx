@@ -1,4 +1,4 @@
-import { ActorsResponse, Casting, Genre, Movie, MovieDetail, MovieResult, Video, actor } from "../model";
+import { Casting, Genre, MovieDetail, MovieResult, Video } from "../model";
 
 interface Repository {
     getAllComingUpMovies(page?:number):Promise<MovieResult>

@@ -1,4 +1,4 @@
-import { GestureResponderEvent, StyleSheet, TextInput, View } from "react-native"
+import { StyleSheet, TextInput, View } from "react-native"
 import { color } from "../color"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
